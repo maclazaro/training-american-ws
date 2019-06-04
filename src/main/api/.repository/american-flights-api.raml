@@ -1,4 +1,5 @@
 #%RAML 1.0
+baseUri: https://anypoint.mulesoft.com/mocking/api/v1/links/bcffbac4-c1b4-4d25-8283-00f0e21ea9d8/ # 
 version: v1
 title: American Flights API
 
@@ -19,19 +20,21 @@ types:
         body:
           application/json:
             type: AmericanFlight[]
-            examples: !include exchange_modules/68ef9520-24e9-4cf2-b2f5-620025690913/training-american-flights-example/1.0.1/AmericanFlightsExample.raml
+            examples:
+              output: !include exchange_modules/68ef9520-24e9-4cf2-b2f5-620025690913/training-american-flights-example/1.0.1/AmericanFlightsExample.raml
 
   post:
     body:
       application/json:
         type: AmericanFlight
-        examples: !include examples/AmericanFlightNoIDExample.raml
+        examples:
+          output: !include examples/AmericanFlightNoIDExample.raml
     responses:
       201:
         body:
           application/json:
             example:
-              message: Flight added (but not really)
+              {"message": "Flight deleted (but not really)"}
           
   /{ID}:
     get:
@@ -40,22 +43,24 @@ types:
           body:
             application/json:
               type: AmericanFlight
-              examples: !include examples/AmericanFlightExample.raml
+              examples:
+                output: !include examples/AmericanFlightExample.raml
     delete:
       responses:
         200:
           body:
             application/json:
               example:
-                message: Flight deleted (but not really)
+                {"message": "Flight deleted (but not really)"}
     put:
       body:
         application/json:
           type: AmericanFlight
-          examples: !include examples/AmericanFlightNoIDExample.raml
+          examples:
+            output: !include examples/AmericanFlightNoIDExample.raml
       responses:
         200:
           body:
             application/json:
               example:
-                message: Flight updated (but not really)
+                {"message": "Flight deleted (but not really)"}
