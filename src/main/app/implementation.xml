@@ -10,7 +10,7 @@ http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/cu
 http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
 http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
 http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd">
-    <http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="8081" doc:name="HTTP Listener Configuration"/>
+    <http:listener-config name="HTTP_Listener_Configuration" host="${http.host}" port="8080" doc:name="HTTP Listener Configuration"/>
     <spring:beans>
         <spring:bean id="DerbyDB" name="DerbyDB" class="org.enhydra.jdbc.standard.StandardDataSource">
             <spring:property name="url" value="jdbc:derby://localhost:1527/memory:training"/>
@@ -49,7 +49,8 @@ payload map ((payload01 , indexOfPayload01) -> {
         <db:select config-ref="Derby_Configuration" doc:name="Database">
             <db:parameterized-query><![CDATA[SELECT * 
 FROM american
-WHERE ID = #[message.inboundProperties.'http.uri.params'.id]]]></db:parameterized-query>
+WHERE ID = #[flowVars.ID]]]></db:parameterized-query>
+
         </db:select>
         <dw:transform-message doc:name="Transform Message" metadata:id="8fc57498-75b6-471f-85fb-6489b5e77de4">
             <dw:input-payload doc:sample="sample_data\list_map.dwl"/>
