@@ -7,6 +7,7 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
     <http:listener-config name="httpListenerConfig" host="${http.host}" port="${http.port}" doc:name="HTTP Listener Configuration" />
     <apikit:config name="apiConfig" raml="american-flights-api.raml" consoleEnabled="false" doc:name="Router" keepRamlBaseUri="false" />
     <context:property-placeholder location="api.properties" />
+    <context:property-placeholder location="american-${env}.properties"/>
     <flow name="api-main">
         <http:listener config-ref="httpListenerConfig" path="/api/*" doc:name="HTTP" />
         <apikit:router config-ref="apiConfig" doc:name="APIkit Router" />
